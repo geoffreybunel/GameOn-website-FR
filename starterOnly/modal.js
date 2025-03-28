@@ -11,6 +11,7 @@ function editNav() {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const modalBtnClose = document.querySelector(".close");
+const form = document.querySelector("form");
 const formData = document.querySelectorAll(".formData");
 
 // launch modal event
@@ -29,3 +30,34 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
+//Inputs validation
+function validateName() {
+  let first = document.getElementById("first");
+  let last = document.getElementById("last");
+
+  if (first.length < 2) {
+    throw new Error("Le prénom est trop court.")
+  }
+  if (last.length < 2) {
+    throw new Error("Le nom est trop court. ")
+  }
+}
+
+function validateEmail() {
+  let email = document.getElementById("email");
+  let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+  if (!emailRegExp.test(email)) {
+      throw new Error("L'email n'est pas valide.")
+  }
+}
+
+
+
+
+
+// Form Submit
+function submitForm() {
+  form.addEventListener("submit", (event) => {
+    console.log(event)
+  })
+}
