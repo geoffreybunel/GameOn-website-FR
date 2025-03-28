@@ -22,7 +22,7 @@ function launchModal() {
 }
 
 // Close modal event
-modalBtnClose.forEach((btn) => btn.addEventListener("click", closeModal));
+modalBtnClose.addEventListener("click", closeModal);
 
 // Close modal form
 function closeModal() {
