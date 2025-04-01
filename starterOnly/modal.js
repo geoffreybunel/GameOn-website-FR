@@ -38,7 +38,9 @@ form.addEventListener("submit", function(event) {
 // Validate Firstname
 function validatePrenom() {
   let first = document.getElementById("first");
-  if (first.value.trim().length < 2) {
+  const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
+  
+  if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
     console.log("First is " + false);
   } else {
     console.log("First is " + true);
@@ -48,7 +50,9 @@ function validatePrenom() {
 // Validate Lastname
 function validateNom() {
   let last = document.getElementById("last");
-  if (last.value.trim().length < 2) {
+  const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
+
+  if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
     console.log("Last is " + false);
   } else {
     console.log("Last is " + true);
@@ -58,7 +62,7 @@ function validateNom() {
 // Validate Email
 function validateEmail() {
   let email = document.getElementById("email");
-  let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
+  let emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
   if (!emailRegExp.test(email.value)) {
     console.log("Email is " + false);
   } else {
