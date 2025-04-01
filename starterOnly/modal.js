@@ -101,7 +101,7 @@ function validateLocation() {
 }
 
 // Validate Checkbox
-function validateLocation() {
+function validateCheckbox() {
   let checkbox = document.getElementById("checkbox1");
 
   if (checkbox.checked) {
@@ -119,4 +119,5 @@ function validate() {
     validateBirthdate()
     validateQuantity()
     validateLocation()
+    validateCheckbox()
 }
