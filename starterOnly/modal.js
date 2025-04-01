@@ -30,34 +30,46 @@ function closeModal() {
   modalbg.style.display = "none";
 }
 
-//Inputs validation
-function validateName() {
-  let first = document.getElementById("first");
-  let last = document.getElementById("last");
+// Prevent the modal from closing on Submit
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+})
 
-  if (first.length < 2) {
-    throw new Error("Le prénom est trop court.")
+// Validate Firstname
+function validatePrenom() {
+  let prenom = document.getElementById("first").value;
+  if (prenom.length < 2) {
+    return false;
+  } else {
+    return true;
   }
-  if (last.length < 2) {
-    throw new Error("Le nom est trop court. ")
+
+}
+
+// Validate Lastname
+function validateNom() {
+  let nom = document.getElementById("last").value;
+  if (nom.length < 2) {
+    return false;
+  } else {
+    return true;
   }
 }
 
+// Validate Email
 function validateEmail() {
-  let email = document.getElementById("email");
+  let email = document.getElementById("email").value;
   let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
   if (!emailRegExp.test(email)) {
-      throw new Error("L'email n'est pas valide.")
+    return false;
+  }  else {
+    return true;
   }
 }
 
-
-
-
-
-// Form Submit
-function submitForm() {
-  form.addEventListener("submit", (event) => {
-    console.log(event)
-  })
+// Make sure the values are correct OR Error
+function validate() {
+    validatePrenom();
+    validateNom();
+    validateEmail();
 }
