@@ -39,9 +39,9 @@ form.addEventListener("submit", function(event) {
 function validatePrenom() {
   let first = document.getElementById("first");
   if (first.value.trim().length < 2) {
-    console.log(false);
+    console.log("First is " + false);
   } else {
-    console.log(true);
+    console.log("First is " + true);
   }
 }
 
@@ -49,9 +49,9 @@ function validatePrenom() {
 function validateNom() {
   let last = document.getElementById("last");
   if (last.value.trim().length < 2) {
-    console.log(false);
+    console.log("Last is " + false);
   } else {
-    console.log(true);
+    console.log("Last is " + true);
   }
 }
 
@@ -60,9 +60,9 @@ function validateEmail() {
   let email = document.getElementById("email");
   let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
   if (!emailRegExp.test(email.value)) {
-    console.log(false);
+    console.log("Email is " + false);
   } else {
-    console.log(true);
+    console.log("Email is " + true);
   }
 }
 
@@ -70,19 +70,44 @@ function validateEmail() {
 function validateBirthdate() {
   let birthdate = document.getElementById("birthdate");
   if (birthdate.value === "") {
-    console.log(false);
+    console.log("Birthdate is " + false);
   } else {
-    console.log(true);
+    console.log("Birthdate is " + true);
   }
 }
 
-// Validate tournaments number
+// Validate Quantity
 function validateQuantity() {
   let quantity = document.getElementById("quantity");
   if (quantity.value === "" || isNaN(quantity.value)) {
-    console.log(false);
+    console.log("Quantity is " + false);
   } else {
-    console.log(true);
+    console.log("Quantity is " + true);
+  }
+}
+
+// Validate Location
+function validateLocation() {
+  let location = document.querySelectorAll('input[name="location"]');
+
+  for (let i = 0; i < location.length; i++ ) {
+    if (location[i].checked) {
+      console.log(i + " is " + true)
+      break
+    } else {
+      console.log("Location is " + false)
+    }
+  }
+}
+
+// Validate Checkbox
+function validateLocation() {
+  let checkbox = document.getElementById("checkbox1");
+
+  if (checkbox.checked) {
+    console.log("Checkbox is " + true)
+  } else {
+    console.log("Checkbox is " + false)
   }
 }
 
@@ -93,4 +118,5 @@ function validate() {
     validateEmail();
     validateBirthdate()
     validateQuantity()
+    validateLocation()
 }
