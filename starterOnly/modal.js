@@ -37,33 +37,52 @@ form.addEventListener("submit", function(event) {
 
 // Validate Firstname
 function validatePrenom() {
-  let prenom = document.getElementById("first").value;
-  if (prenom.length < 2) {
-    return false;
+  let first = document.getElementById("first");
+  if (first.value.trim().length < 2) {
+    console.log(false);
   } else {
-    return true;
+    console.log(true);
   }
-
 }
 
 // Validate Lastname
 function validateNom() {
-  let nom = document.getElementById("last").value;
-  if (nom.length < 2) {
-    return false;
+  let last = document.getElementById("last");
+  if (last.value.trim().length < 2) {
+    console.log(false);
   } else {
-    return true;
+    console.log(true);
   }
 }
 
 // Validate Email
 function validateEmail() {
-  let email = document.getElementById("email").value;
+  let email = document.getElementById("email");
   let emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+")
-  if (!emailRegExp.test(email)) {
-    return false;
-  }  else {
-    return true;
+  if (!emailRegExp.test(email.value)) {
+    console.log(false);
+  } else {
+    console.log(true);
+  }
+}
+
+// Validate Birthdate
+function validateBirthdate() {
+  let birthdate = document.getElementById("birthdate");
+  if (birthdate.value === "") {
+    console.log(false);
+  } else {
+    console.log(true);
+  }
+}
+
+// Validate tournaments number
+function validateQuantity() {
+  let quantity = document.getElementById("quantity");
+  if (quantity.value === "" || isNaN(quantity.value)) {
+    console.log(false);
+  } else {
+    console.log(true);
   }
 }
 
@@ -72,4 +91,6 @@ function validate() {
     validatePrenom();
     validateNom();
     validateEmail();
+    validateBirthdate()
+    validateQuantity()
 }
