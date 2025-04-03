@@ -13,6 +13,7 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const modalBtnClose = document.querySelector(".close");
 const form = document.querySelector("form");
 const formData = document.querySelectorAll(".formData");
+let isValid = true;
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -36,11 +37,12 @@ form.addEventListener("submit", function(event) {
 })
 
 // Validate Firstname
-function validatePrenom() {
+function validateFirst() {
   let first = document.getElementById("first");
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
   
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
+    isValid = false;
     console.log("First is " + false);
   } else {
     console.log("First is " + true);
@@ -48,11 +50,12 @@ function validatePrenom() {
 }
 
 // Validate Lastname
-function validateNom() {
+function validateLast() {
   let last = document.getElementById("last");
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
 
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
+    isValid = false;
     console.log("Last is " + false);
   } else {
     console.log("Last is " + true);
@@ -64,6 +67,7 @@ function validateEmail() {
   let email = document.getElementById("email");
   let emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
   if (!emailRegExp.test(email.value)) {
+    isValid = false;
     console.log("Email is " + false);
   } else {
     console.log("Email is " + true);
@@ -74,6 +78,7 @@ function validateEmail() {
 function validateBirthdate() {
   let birthdate = document.getElementById("birthdate");
   if (birthdate.value === "") {
+    isValid = false;
     console.log("Birthdate is " + false);
   } else {
     console.log("Birthdate is " + true);
@@ -84,6 +89,7 @@ function validateBirthdate() {
 function validateQuantity() {
   let quantity = document.getElementById("quantity");
   if (quantity.value === "" || isNaN(quantity.value)) {
+    isValid = false;
     console.log("Quantity is " + false);
   } else {
     console.log("Quantity is " + true);
@@ -93,14 +99,19 @@ function validateQuantity() {
 // Validate Location
 function validateLocation() {
   let location = document.querySelectorAll('input[name="location"]');
+  let locationChecked = false;
 
   for (let i = 0; i < location.length; i++ ) {
     if (location[i].checked) {
-      console.log(i + " is " + true)
+      locationChecked = true;
+      console.log("Location is " + true);
       break
-    } else {
-      console.log("Location is " + false)
     }
+  }
+
+  if (!locationChecked) {
+    isValid = false;
+    console.log("Location is " + false);
   }
 }
 
@@ -111,17 +122,25 @@ function validateCheckbox() {
   if (checkbox.checked) {
     console.log("Checkbox is " + true)
   } else {
-    console.log("Checkbox is " + false)
+    isValid = false;
+    return false
+    // console.log("Checkbox is " + false)
   }
 }
 
 // Make sure the values are correct OR Error
 function validate() {
-    validatePrenom();
-    validateNom();
+    validateFirst();
+    validateLast();
     validateEmail();
     validateBirthdate()
     validateQuantity()
     validateLocation()
     validateCheckbox()
+
+    if (isValid) {
+      alert("Merci, nous avons reçu votre réservation !")
+      closeModal();
+      return isValid;
+    }
 }
