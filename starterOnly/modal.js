@@ -43,9 +43,9 @@ function validateFirst() {
   
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
     isValid = false;
-    console.log("First is " + false);
+    return false;
   } else {
-    console.log("First is " + true);
+    return true;
   }
 }
 
@@ -56,9 +56,9 @@ function validateLast() {
 
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
     isValid = false;
-    console.log("Last is " + false);
+    return false;
   } else {
-    console.log("Last is " + true);
+    return true;
   }
 }
 
@@ -68,9 +68,9 @@ function validateEmail() {
   let emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
   if (!emailRegExp.test(email.value)) {
     isValid = false;
-    console.log("Email is " + false);
+    return false;
   } else {
-    console.log("Email is " + true);
+    return true;
   }
 }
 
@@ -79,9 +79,9 @@ function validateBirthdate() {
   let birthdate = document.getElementById("birthdate");
   if (birthdate.value === "") {
     isValid = false;
-    console.log("Birthdate is " + false);
+    return false;
   } else {
-    console.log("Birthdate is " + true);
+    return true;
   }
 }
 
@@ -90,9 +90,9 @@ function validateQuantity() {
   let quantity = document.getElementById("quantity");
   if (quantity.value === "" || isNaN(quantity.value)) {
     isValid = false;
-    console.log("Quantity is " + false);
+    return false;
   } else {
-    console.log("Quantity is " + true);
+    return true;
   }
 }
 
@@ -104,14 +104,14 @@ function validateLocation() {
   for (let i = 0; i < location.length; i++ ) {
     if (location[i].checked) {
       locationChecked = true;
-      console.log("Location is " + true);
+      return true;
       break
     }
   }
 
   if (!locationChecked) {
     isValid = false;
-    console.log("Location is " + false);
+    return false;
   }
 }
 
@@ -120,27 +120,36 @@ function validateCheckbox() {
   let checkbox = document.getElementById("checkbox1");
 
   if (checkbox.checked) {
-    console.log("Checkbox is " + true)
+    return true;
   } else {
     isValid = false;
-    return false
-    // console.log("Checkbox is " + false)
+    return false;
   }
 }
 
 // Make sure the values are correct OR Error
 function validate() {
-    validateFirst();
-    validateLast();
-    validateEmail();
-    validateBirthdate()
-    validateQuantity()
-    validateLocation()
-    validateCheckbox()
+  const firstValid = validateFirst();
+  const lastValid = validateLast();
+  const emailValid = validateEmail();
+  const birthdateValid = validateBirthdate();
+  const quantityValid = validateQuantity();
+  const locationValid = validateLocation();
+  const checkboxValid = validateCheckbox();
 
-    if (isValid) {
-      alert("Merci, nous avons reçu votre réservation !")
-      closeModal();
-      return isValid;
-    }
+  console.log("First is " + firstValid);
+  console.log("Last is " + lastValid);
+  console.log("Email is " + emailValid);
+  console.log("Birthdate is " + birthdateValid);
+  console.log("Quantity is " + quantityValid);
+  console.log("Location is " + locationValid);
+  console.log("Checkbox is " + checkboxValid);
+
+  if (isValid === true) {
+    alert("Merci, nous avons reçu votre réservation !");
+    closeModal();
+    form.reset();
+  }
+
+  return isValid;
 }
