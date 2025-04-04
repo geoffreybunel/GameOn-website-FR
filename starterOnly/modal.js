@@ -43,7 +43,7 @@ function validateFirst() {
   
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
     isValid = false;
-    return false;
+    throw { element: first, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
   } else {
     return true;
   }
@@ -56,7 +56,7 @@ function validateLast() {
 
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
     isValid = false;
-    return false;
+    throw { element: last, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
   } else {
     return true;
   }
@@ -68,7 +68,7 @@ function validateEmail() {
   let emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
   if (!emailRegExp.test(email.value)) {
     isValid = false;
-    return false;
+    throw { element: email, message: "L'email n'est pas valide."};
   } else {
     return true;
   }
@@ -79,7 +79,7 @@ function validateBirthdate() {
   let birthdate = document.getElementById("birthdate");
   if (birthdate.value === "") {
     isValid = false;
-    return false;
+    throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
   } else {
     return true;
   }
@@ -90,7 +90,7 @@ function validateQuantity() {
   let quantity = document.getElementById("quantity");
   if (quantity.value === "" || isNaN(quantity.value)) {
     isValid = false;
-    return false;
+    throw { element: quantity, message: "Vous devez ajouter une valeur."};
   } else {
     return true;
   }
@@ -105,13 +105,12 @@ function validateLocation() {
     if (location[i].checked) {
       locationChecked = true;
       return true;
-      break
     }
   }
 
   if (!locationChecked) {
     isValid = false;
-    return false;
+    throw { element: location, message: "Vous devez choisir une option."};
   }
 }
 
@@ -123,12 +122,25 @@ function validateCheckbox() {
     return true;
   } else {
     isValid = false;
-    return false;
+    throw { element: checkbox, message: "Vous devez vérifier que vous acceptez les termes et conditions."};
   }
+}
+
+// Display Error Message
+function displayErrorMessage(element, message) {
+  let divError = document.createElement("div");
+  
+  divError.style.color = "red";
+  divError.textContent = message;
+
+  element.classList.add("formData::after", "formData .text-control")
+  formData.append(divError)
 }
 
 // Make sure the values are correct OR Error
 function validate() {
+  isValid = true;
+
   const firstValid = validateFirst();
   const lastValid = validateLast();
   const emailValid = validateEmail();
@@ -136,6 +148,19 @@ function validate() {
   const quantityValid = validateQuantity();
   const locationValid = validateLocation();
   const checkboxValid = validateCheckbox();
+
+  try {
+    firstValid;
+    lastValid;
+    emailValid;
+    birthdateValid;
+    quantityValid;
+    locationValid;
+    checkboxValid;
+
+  } catch (error) {
+    displayErrorMessage(error.element, error.message);
+  }
 
   console.log("First is " + firstValid);
   console.log("Last is " + lastValid);
