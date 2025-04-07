@@ -144,7 +144,7 @@ function displayErrorMessage(element, message) {
   parentElement.setAttribute("data-error-visible", "true");
 }
 
-// Reset Errors
+// Reset errors on submit
 function resetErrors() {
   const formData = document.querySelectorAll(".formData");
 
@@ -174,7 +174,7 @@ function validate() {
   }
 
   if (isValid === true) {
-    alert("Merci, nous avons reçu votre réservation !");
+    alert("Merci ! Votre réservation a été reçue.");
     closeModal();
     form.reset();
   }
