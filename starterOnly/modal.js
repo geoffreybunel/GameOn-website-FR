@@ -12,7 +12,6 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const modalBtnClose = document.querySelector(".close");
 const form = document.querySelector("form");
-const formData = document.querySelectorAll(".formData");
 let isValid = true;
 
 // launch modal event
@@ -38,7 +37,7 @@ form.addEventListener("submit", function(event) {
 
 // Validate Firstname
 function validateFirst() {
-  let first = document.getElementById("first");
+  const first = document.getElementById("first");
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
   
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
@@ -51,7 +50,7 @@ function validateFirst() {
 
 // Validate Lastname
 function validateLast() {
-  let last = document.getElementById("last");
+  const last = document.getElementById("last");
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
 
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
@@ -64,8 +63,8 @@ function validateLast() {
 
 // Validate Email
 function validateEmail() {
-  let email = document.getElementById("email");
-  let emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
+  const email = document.getElementById("email");
+  const emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
   if (!emailRegExp.test(email.value)) {
     isValid = false;
     throw { element: email, message: "L'email n'est pas valide."};
@@ -76,7 +75,7 @@ function validateEmail() {
 
 // Validate Birthdate
 function validateBirthdate() {
-  let birthdate = document.getElementById("birthdate");
+  const birthdate = document.getElementById("birthdate");
   if (birthdate.value === "") {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
@@ -87,7 +86,7 @@ function validateBirthdate() {
 
 // Validate Quantity
 function validateQuantity() {
-  let quantity = document.getElementById("quantity");
+  const quantity = document.getElementById("quantity");
   if (quantity.value === "" || isNaN(quantity.value)) {
     isValid = false;
     throw { element: quantity, message: "Vous devez ajouter une valeur."};
@@ -98,7 +97,7 @@ function validateQuantity() {
 
 // Validate Location
 function validateLocation() {
-  let location = document.querySelectorAll('input[name="location"]');
+  const location = document.querySelectorAll('input[name="location"]');
   let locationChecked = false;
 
   for (let i = 0; i < location.length; i++ ) {
@@ -128,47 +127,51 @@ function validateCheckbox() {
 
 // Display Error Message
 function displayErrorMessage(element, message) {
-  let divError = document.createElement("div");
-  
-  divError.style.color = "red";
-  divError.textContent = message;
+  let parentElement;
 
-  element.classList.add("formData::after", "formData .text-control")
-  formData.append(divError)
+  // Si c'est une NodeList (comme pour les radio buttons)
+  if (element.length) {
+    parentElement = element[0].closest(".formData");
+  } else {
+    // Pour tous les autres éléments
+    parentElement = element.closest(".formData");
+  }
+
+  // Définir le message d'erreur dans l'attribut data-error
+  parentElement.setAttribute("data-error", message);
+
+  // Ajouter le data-error-visible au parent
+  parentElement.setAttribute("data-error-visible", "true");
+}
+
+// Reset Errors
+function resetErrors() {
+  const formData = document.querySelectorAll(".formData");
+
+  formData.forEach(element => {
+    element.removeAttribute("data-error");
+    element.removeAttribute("data-error-visible");
+  })
 }
 
 // Make sure the values are correct OR Error
 function validate() {
   isValid = true;
 
-  const firstValid = validateFirst();
-  const lastValid = validateLast();
-  const emailValid = validateEmail();
-  const birthdateValid = validateBirthdate();
-  const quantityValid = validateQuantity();
-  const locationValid = validateLocation();
-  const checkboxValid = validateCheckbox();
+  resetErrors();
 
   try {
-    firstValid;
-    lastValid;
-    emailValid;
-    birthdateValid;
-    quantityValid;
-    locationValid;
-    checkboxValid;
+    validateFirst();
+    validateLast();
+    validateEmail();
+    validateBirthdate();
+    validateQuantity();
+    validateLocation();
+    validateCheckbox();
 
   } catch (error) {
     displayErrorMessage(error.element, error.message);
   }
-
-  console.log("First is " + firstValid);
-  console.log("Last is " + lastValid);
-  console.log("Email is " + emailValid);
-  console.log("Birthdate is " + birthdateValid);
-  console.log("Quantity is " + quantityValid);
-  console.log("Location is " + locationValid);
-  console.log("Checkbox is " + checkboxValid);
 
   if (isValid === true) {
     alert("Merci, nous avons reçu votre réservation !");
