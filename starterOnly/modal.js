@@ -38,8 +38,10 @@ form.addEventListener("submit", function(event) {
 // Validate Firstname
 function validateFirst() {
   const first = document.getElementById("first");
+  // Define RegExp for firstname
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
   
+  // If Firstname value doesn't respect RegExp OR Firstname value < 2 characters, throw error
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
     isValid = false;
     throw { element: first, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
@@ -51,8 +53,10 @@ function validateFirst() {
 // Validate Lastname
 function validateLast() {
   const last = document.getElementById("last");
+  // Define RegExp for lastname
   const nameRegExp = /^[\p{Letter}\s\-.']+$/u;
 
+  // If Lastname value doesn't respect RegExp OR Lastname value < 2 characters, throw error
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
     isValid = false;
     throw { element: last, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
@@ -64,7 +68,10 @@ function validateLast() {
 // Validate Email
 function validateEmail() {
   const email = document.getElementById("email");
+  // Define RegExp for Email
   const emailRegExp = new RegExp('^((?!\\.)[\\w\\-_.]*[^.])(@\\w+)(\\.\\w+(\\.\\w+)?[^.\\W])$');
+
+  // If email value doesn't respect RegExp, throw error
   if (!emailRegExp.test(email.value)) {
     isValid = false;
     throw { element: email, message: "L'email n'est pas valide."};
@@ -76,6 +83,8 @@ function validateEmail() {
 // Validate Birthdate
 function validateBirthdate() {
   const birthdate = document.getElementById("birthdate");
+
+  // If birthdate value is null, throw error
   if (birthdate.value === "") {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
@@ -87,6 +96,8 @@ function validateBirthdate() {
 // Validate Quantity
 function validateQuantity() {
   const quantity = document.getElementById("quantity");
+
+  // If quantity is null or if quantity is Not a Number, throw Error
   if (quantity.value === "" || isNaN(quantity.value)) {
     isValid = false;
     throw { element: quantity, message: "Vous devez ajouter une valeur."};
@@ -100,6 +111,7 @@ function validateLocation() {
   const location = document.querySelectorAll('input[name="location"]');
   let locationChecked = false;
 
+  // Check if a radio button is checked. If yes return true
   for (let i = 0; i < location.length; i++ ) {
     if (location[i].checked) {
       locationChecked = true;
@@ -107,6 +119,7 @@ function validateLocation() {
     }
   }
 
+  // If no radio button is checked, throw Error
   if (!locationChecked) {
     isValid = false;
     throw { element: location, message: "Vous devez choisir une option."};
@@ -117,34 +130,32 @@ function validateLocation() {
 function validateCheckbox() {
   let checkbox = document.getElementById("checkbox1");
 
+  // If Terms is checked, return True
   if (checkbox.checked) {
     return true;
+    // Else throw Error
   } else {
     isValid = false;
     throw { element: checkbox, message: "Vous devez vérifier que vous acceptez les termes et conditions."};
   }
 }
 
-// Display Error Message
+// DISPLAY ERROR MESSAGE function
 function displayErrorMessage(element, message) {
   let parentElement;
 
-  // Si c'est une NodeList (comme pour les radio buttons)
+  // If multiple elements, chose the first one
   if (element.length) {
     parentElement = element[0].closest(".formData");
   } else {
-    // Pour tous les autres éléments
     parentElement = element.closest(".formData");
   }
 
-  // Définir le message d'erreur dans l'attribut data-error
   parentElement.setAttribute("data-error", message);
-
-  // Ajouter le data-error-visible au parent
   parentElement.setAttribute("data-error-visible", "true");
 }
 
-// Reset errors on submit
+// RESET ERRORS function
 function resetErrors() {
   const formData = document.querySelectorAll(".formData");
 
@@ -154,12 +165,12 @@ function resetErrors() {
   })
 }
 
-// Make sure the values are correct OR Error
+// VALIDATION  function
 function validate() {
-  isValid = true;
-
+  // Reset errors on submit
   resetErrors();
 
+  // Make sure the values are correct OR Error
   try {
     validateFirst();
     validateLast();
@@ -173,9 +184,13 @@ function validate() {
     displayErrorMessage(error.element, error.message);
   }
 
+  // If no errors
   if (isValid === true) {
+    // display alert message
     alert("Merci ! Votre réservation a été reçue.");
+    // Close Modal
     closeModal();
+    // Reset form inputs
     form.reset();
   }
 
