@@ -92,9 +92,11 @@ function validateBirthdate() {
   if (userBirthdate === "") {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
+  // If birthdate value is over today's date, throw error
   } else if (userBirthdate > today) {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer une date valide."};
+  // If user age is < 18, throw error
   } else if (userBirthdate > minimumAge) {
     isValid = false;
     throw { element: birthdate, message: "Vous devez avoir 18 ans."};
