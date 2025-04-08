@@ -83,11 +83,21 @@ function validateEmail() {
 // Validate Birthdate
 function validateBirthdate() {
   const birthdate = document.getElementById("birthdate");
+  const userBirthdate = new Date(birthdate.value);
+  const today = new Date();
+  const minimumAge = new Date();
+  minimumAge.setFullYear(minimumAge.getFullYear() - 18);
 
   // If birthdate value is null, throw error
-  if (birthdate.value === "") {
+  if (userBirthdate === "") {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
+  } else if (userBirthdate > today) {
+    isValid = false;
+    throw { element: birthdate, message: "Vous devez entrer une date valide."};
+  } else if (userBirthdate > minimumAge) {
+    isValid = false;
+    throw { element: birthdate, message: "Vous devez avoir 18 ans."};
   } else {
     return true;
   }
