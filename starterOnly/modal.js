@@ -89,7 +89,7 @@ function validateBirthdate() {
   minimumAge.setFullYear(minimumAge.getFullYear() - 18);
 
   // If birthdate value is null, throw error
-  if (userBirthdate === "") {
+  if (birthdate.value === "") {
     isValid = false;
     throw { element: birthdate, message: "Vous devez entrer votre date de naissance."};
   // If birthdate value is over today's date, throw error
@@ -181,6 +181,9 @@ function resetErrors() {
 function validate() {
   // Reset errors on submit
   resetErrors();
+
+  // Reset isValid to true at the beginning of validation
+  isValid = true;
 
   // Make sure the values are correct OR Error
   try {
