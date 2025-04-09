@@ -9,10 +9,27 @@ function editNav() {
 
 // DOM Elements
 const modalbg = document.querySelector(".bground");
+const modalContainer = document.querySelector(".content");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const modalBtnClose = document.querySelector(".close");
+const formDiv = document.querySelector(".modal-body");
 const form = document.querySelector("form");
+const formData = document.querySelectorAll(".formData");
 let isValid = true;
+
+// Creation of confirmation message
+const confirmationMessage = document.createElement("div");
+confirmationMessage.className = "confirmation-message";
+confirmationMessage.style.display = "none";
+confirmationMessage.style.textAlign = "center";
+confirmationMessage.style.padding = "30px";
+confirmationMessage.innerHTML = `
+  <h2 style="margin-bottom: 30px; font-size: 36px; color: white;">Merci pour votre inscription</h2>
+  <button class="btn-submit" id="btn-close">Fermer</button>
+  `;
+
+// Adding the confirmation message to the HTML
+modalContainer.append(confirmationMessage);
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -28,6 +45,9 @@ modalBtnClose.addEventListener("click", closeModal);
 // Close modal form
 function closeModal() {
   modalbg.style.display = "none";
+
+  formDiv.style.display = "block";
+  confirmationMessage.style.display = "none";
 }
 
 // Prevent the modal from closing on Submit
@@ -169,13 +189,22 @@ function displayErrorMessage(element, message) {
 
 // RESET ERRORS function
 function resetErrors() {
-  const formData = document.querySelectorAll(".formData");
-
   formData.forEach(element => {
     element.removeAttribute("data-error");
     element.removeAttribute("data-error-visible");
   })
 }
+
+// DISPLAY SUCCESS MESSAGE
+function displaySuccessMessage() {
+  const btnCloseConfirmationMessage = document.getElementById("btn-close");
+
+  formDiv.style.display = "none";
+  confirmationMessage.style.display = "block";
+  btnCloseConfirmationMessage.addEventListener("click", closeModal);
+}
+
+
 
 // VALIDATION  function
 function validate() {
@@ -185,29 +214,23 @@ function validate() {
   // Reset isValid to true at the beginning of validation
   isValid = true;
 
+  // Create an array to stock all the errors
+  let errors = [];
+  
   // Make sure the values are correct OR Error
   try {
     validateFirst();
-    validateLast();
-    validateEmail();
-    validateBirthdate();
-    validateQuantity();
-    validateLocation();
-    validateCheckbox();
-
   } catch (error) {
-    displayErrorMessage(error.element, error.message);
+  
   }
 
+
+  displayErrorMessage(error.element, error.message);
   // If no errors
   if (isValid === true) {
-    // display alert message
-    alert("Merci ! Votre réservation a été reçue.");
-    // Close Modal
-    closeModal();
+    // display success message
+    displaySuccessMessage();
     // Reset form inputs
-    form.reset();
+        form.reset();
   }
-
-  return isValid;
 }
