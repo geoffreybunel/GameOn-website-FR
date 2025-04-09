@@ -216,16 +216,66 @@ function validate() {
 
   // Create an array to stock all the errors
   let errors = [];
-  
-  // Make sure the values are correct OR Error
+
+  // Firstname Validation
   try {
     validateFirst();
   } catch (error) {
-  
+    // Push error in errors's array
+    errors.push(error);
   }
 
+  // Lastname Validation
+  try {
+    validateLast();
+  } catch (error) {
+    errors.push(error);
+  }
 
-  displayErrorMessage(error.element, error.message);
+  // Email Validation
+  try {
+    validateEmail();
+  } catch (error) {
+    errors.push(error);
+  }
+
+  // Birthdate validation
+  try {
+    validateBirthdate();
+  } catch (error) {
+    errors.push(error);
+  }
+
+  // Quantity validation
+  try {
+    validateQuantity();
+  } catch (error) {
+    errors.push(error);
+  }
+
+  // Location validation
+  try {
+    validateLocation();
+  } catch (error) {
+    errors.push(error);
+  }
+
+  // Checkbox validation
+  try {
+    validateCheckbox();
+  } catch (error) {
+    errors.push(error);
+  }
+
+  // Display all errors collected from TRY/CATCH
+  // If errors's array > 0 = If there is at least one error
+  if (errors.length > 0) {
+    isValid = false;
+    errors.forEach(error => {
+      displayErrorMessage(error.element, error.message);
+    })
+  }
+
   // If no errors
   if (isValid === true) {
     // display success message
