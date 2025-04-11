@@ -64,7 +64,7 @@ function validateFirst() {
   // If Firstname value doesn't respect RegExp OR Firstname value < 2 characters, throw error
   if (first.value.trim().length < 2 || !nameRegExp.test(first.value)) {
     isValid = false;
-    throw { element: first, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
+    throw { element: first, message: "Veuillez entrer 2 caractères ou plus pour le prénom."};
   } else {
     return true;
   }
@@ -79,7 +79,7 @@ function validateLast() {
   // If Lastname value doesn't respect RegExp OR Lastname value < 2 characters, throw error
   if (last.value.trim().length < 2 || !nameRegExp.test(last.value)) {
     isValid = false;
-    throw { element: last, message: "Veuillez entrer 2 caractères ou plus pour le champ du nom."};
+    throw { element: last, message: "Veuillez entrer 2 caractères ou plus pour le nom."};
   } else {
     return true;
   }
