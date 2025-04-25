@@ -15,6 +15,7 @@ const modalBtnClose = document.querySelector(".close");
 const formDiv = document.querySelector(".modal-body");
 const form = document.querySelector("form");
 const formData = document.querySelectorAll(".formData");
+const navIcon = document.querySelector(".icon");
 let isValid = true;
 
 // Creation of confirmation message
@@ -27,6 +28,9 @@ confirmationMessage.innerHTML = `
   <h2 style="margin-bottom: 30px; font-size: 36px; color: white;">Merci pour votre inscription</h2>
   <button class="btn-submit" id="btn-close">Fermer</button>
   `;
+
+// Add click event to nav icon instead of using onclick in HTML
+navIcon.addEventListener("click", editNav);
 
 // Adding the confirmation message to the HTML
 modalContainer.append(confirmationMessage);
