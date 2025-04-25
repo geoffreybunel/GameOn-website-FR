@@ -57,6 +57,7 @@ function closeModal() {
 // Prevent the modal from closing on Submit
 form.addEventListener("submit", function(event) {
   event.preventDefault();
+  return validate()
 })
 
 // Validate Firstname
