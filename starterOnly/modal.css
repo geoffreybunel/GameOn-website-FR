@@ -33,8 +33,6 @@ img {
 .topnav {
   overflow: hidden;
   margin: 3.5%;
-  display: table-cell; /* comportement visuel de cellule */
-  vertical-align: middle;
 }
 .header-logo {
     float: left;
