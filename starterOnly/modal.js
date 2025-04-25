@@ -42,7 +42,7 @@ function launchModal() {
 // Close modal event
 modalBtnClose.addEventListener("click", closeModal);
 
-// Close modal form
+// Close modal function
 function closeModal() {
   modalbg.style.display = "none";
 
