@@ -33,10 +33,13 @@ img {
 .topnav {
   overflow: hidden;
   margin: 3.5%;
+  display: table-cell; /* comportement visuel de cellule */
+  vertical-align: middle;
 }
 .header-logo {
     float: left;
 }
+
 .main-navbar {
     float: right;
 }
@@ -69,16 +72,20 @@ img {
   color: #ff0000;
 }
 
-@media screen and (max-width: 768px) {
-  .topnav a {display: none;}
+@media screen and (max-width: 1150px) {
+  .topnav a {
+    display: none;
+  }
+
   .topnav a.icon {
     float: right;
     display: block;
   }
-}
 
-@media screen and (max-width: 768px) {
-  .topnav.responsive {position: relative;}
+  .topnav.responsive {
+    position: relative;
+  }
+
   .topnav.responsive .icon {
     position: absolute;
     right: 0;
@@ -90,14 +97,6 @@ img {
     text-align: left;
   }
 }
-
- @media screen and (max-width: 540px) {
-  .topnav a {display: none;}
-  .topnav a.icon {
-    float: right;
-    display: block;
-  }
-} 
 
 main {
   font-size: 130%;
@@ -419,7 +418,6 @@ input[data-error]::after {
   color: #fff;
   position: relative;
   text-align: left;
-  min-width: 424px;
 }
 .hero-content::after {
   content: "";
@@ -477,15 +475,16 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 980px) {
   .hero-section {
     display: block;
     box-shadow: unset;
+    min-height: 0;
   }
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 0;
   }
   .hero-content::after {
     content: unset;
@@ -494,12 +493,16 @@ footer {
     display: none;
   }
   .hero-headline {
-    font-size: 4.5rem;
+    font-size: 2.8rem;
     white-space: normal;
+    text-align: center;
+    font-weight: bold;
   }
   .hero-text {
     width: unset;
+    margin-top: 20px;
     font-size: 1.5rem;
+    text-align: center;
   }
   .hero-img img {
     border-radius: 10px;
@@ -513,6 +516,18 @@ footer {
   .copyrights {
     margin-top: 50px;
     text-align: center;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .header-logo img {
+    width: 15rem;
+  }
+  .hero-headline {
+    font-size: 2rem;
+  }
+  .hero-text {
+    font-size: 1rem;
   }
 }
 
