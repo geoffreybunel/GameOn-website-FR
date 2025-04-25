@@ -66,6 +66,7 @@ img {
 
 .topnav .icon {
   display: none;
+  color: #ff0000;
 }
 
 @media screen and (max-width: 768px) {
@@ -90,14 +91,11 @@ img {
   }
 }
 
-
-
  @media screen and (max-width: 540px) {
   .topnav a {display: none;}
   .topnav a.icon {
     float: right;
     display: block;
-    margin-top: -15px;
   }
 } 
 
